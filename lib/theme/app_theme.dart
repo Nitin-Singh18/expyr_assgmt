@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../common/constants.dart';
 import 'app_color.dart';
 import 'expyr_text_theme.dart';
 
@@ -20,6 +21,16 @@ class AppTheme {
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         selectedItemColor: AppColor.green,
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(radiusMedium),
+            ),
+          ),
+          backgroundColor: AppColor.green,
+        ),
       ),
       cardTheme: const CardTheme(color: AppColor.white));
 }

@@ -52,7 +52,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.history),
-            label: "History",
+            label: "Consumed",
           ),
         ],
       ),
