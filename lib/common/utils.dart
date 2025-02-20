@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../theme/app_color.dart';
 import '../widgets/error_bottom_sheet.dart';
@@ -45,4 +46,9 @@ Future<void> showBottomSheet({
       return widget;
     },
   );
+}
+
+String formatDateTime(DateTime time) {
+  final formatter = DateFormat('yyyy-MM-dd');
+  return formatter.format(time);
 }

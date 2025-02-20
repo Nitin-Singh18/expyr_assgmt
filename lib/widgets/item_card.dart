@@ -52,6 +52,12 @@ class ItemCard extends StatelessWidget {
                     context: context,
                     label: 'Quantity',
                     value: item.quantity.toString()),
+              if (item.isConsumed)
+                _buildItemInfo(
+                  context: context,
+                  label: 'Consumed on',
+                  value: formatDateTime(item.consumedAt!),
+                )
             ],
           ),
         ),
