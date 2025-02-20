@@ -5,8 +5,7 @@
 - [📝 Project Overview](#-project-overview)
 - [🎨 UI Enhancements](#-ui-enhancements)
 - [🌎 State Management & Architecture](#-state-management--architecture)
-- [🛠️ Technologies & Tools](#-technologies--tools)
-- [⚙️ Setup & Installation](#-setup--installation)
+- [⚙️ Setup](#-setup)
 - [🚀 Improvements & Future Scope](#-improvements--future-scope)
 
 ---
