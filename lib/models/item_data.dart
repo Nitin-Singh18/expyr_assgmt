@@ -1,121 +1,51 @@
-class ItemData {
-  final String? id;
-  final String name;
-  final String expiry;
-  final String location;
-  final int quantity;
-  final bool isPackaged;
-  final String? imagePath;
-  final bool isExpiryAssumed;
-  bool isConsumed;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  ItemData({
-    this.id,
-    required this.name,
-    required this.expiry,
-    required this.location,
-    this.quantity = 1,
-    this.isPackaged = false,
-    this.imagePath,
-    this.isExpiryAssumed = false,
-    this.isConsumed = false,
-  });
+part 'item_data.freezed.dart';
 
-  ItemData copyWith({
+part 'item_data.g.dart';
+
+@freezed
+class ItemData with _$ItemData {
+  const factory ItemData({
     String? id,
-    String? name,
-    String? expiry,
-    String? location,
-    int? quantity,
-    bool? isPackaged,
+    required String name,
+    required String expiry,
+    required String location,
+    @Default(1) int quantity,
+    @Default(false) bool isPackaged,
     String? imagePath,
-    bool? isExpiryAssumed,
-    bool? isConsumed,
-  }) {
-    return ItemData(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      expiry: expiry ?? this.expiry,
-      location: location ?? this.location,
-      quantity: quantity ?? this.quantity,
-      isPackaged: isPackaged ?? this.isPackaged,
-      imagePath: imagePath ?? this.imagePath,
-      isExpiryAssumed: isExpiryAssumed ?? this.isExpiryAssumed,
-      isConsumed: isConsumed ?? this.isConsumed,
-    );
-  }
+    @Default(false) bool isExpiryAssumed,
+    @Default(false) bool isConsumed,
+    DateTime? consumedAt,
+  }) = _ItemData;
 
-  factory ItemData.fromMap(Map<String, dynamic> map) {
-    return ItemData(
-      id: map['id'] as String?,
-      name: map['name'] as String,
-      expiry: map['expiry'] as String,
-      location: map['location'] as String,
-      quantity: (map['quantity'] as num?)?.toInt() ?? 1,
-      isPackaged: map['isPackaged'] as bool? ?? false,
-      imagePath: map['imagePath'] as String?,
-      isExpiryAssumed: map['isExpiryAssumed'] as bool? ?? false,
-      isConsumed: map['isConsumed'] as bool? ?? false,
-    );
-  }
+  factory ItemData.fromJson(Map<String, dynamic> json) =>
+      _$ItemDataFromJson(json);
+}
 
-  Map<String, dynamic> toJson() => {
-    if (id != null) 'id': id,
-    'name': name,
-    'expiry': expiry,
-    'location': location,
-    'quantity': quantity,
-    'isPackaged': isPackaged,
-    if (imagePath != null) 'imagePath': imagePath,
-    'isExpiryAssumed': isExpiryAssumed,
-    'isConsumed': isConsumed,
-  };
-
-  Map<String, dynamic> toMap() => {
-    if (id != null) 'id': id,
-    'name': name,
-    'expiry': expiry,
-    'location': location,
-    'quantity': quantity,
-    'isPackaged': isPackaged,
-    if (imagePath != null) 'imagePath': imagePath,
-    'isExpiryAssumed': isExpiryAssumed,
-    'isConsumed': isConsumed,
-    'createdAt': DateTime.now().toIso8601String(),
-  };
-
+extension ItemDataExtension on ItemData {
+  /// Converts the expiry string to a `DateTime` object
   DateTime get expiryDate {
     final parts = expiry.split('-');
     final year = 2000 + int.parse(parts[2]);
-    return DateTime(
-      year,
-      int.parse(parts[1]),
-      int.parse(parts[0]),
-    );
+    return DateTime(year, int.parse(parts[1]), int.parse(parts[0]));
   }
 
+  /// Calculates the number of days until the item expires
   int get daysUntilExpiry {
     final now = DateTime.now();
     final todayStart = DateTime(now.year, now.month, now.day);
-    final expiryEndOfDay = DateTime(
-      expiryDate.year,
-      expiryDate.month,
-      expiryDate.day,
-      23,
-      59,
-      59,
-    );
+    final expiryEndOfDay =
+        DateTime(expiryDate.year, expiryDate.month, expiryDate.day, 23, 59, 59);
     return expiryEndOfDay.difference(todayStart).inDays;
   }
 
+  /// Checks if the item is expired
   bool get isExpired {
     final now = DateTime.now();
     final todayStart = DateTime(now.year, now.month, now.day);
-    final expiryStart = DateTime(
-      expiryDate.year,
-      expiryDate.month,
-      expiryDate.day,
-    );
+    final expiryStart =
+        DateTime(expiryDate.year, expiryDate.month, expiryDate.day);
     return expiryStart.isBefore(todayStart);
   }
-} 
+}
