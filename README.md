@@ -1,71 +1,83 @@
-# Assignment 1: Food Waste Reduction Feature
+# 📦 Expyr
 
-**Background:**
-At Expyr, we're committed to helping users reduce food waste. While our app currently tracks food items and their expiry dates, we want to understand what happens to these items. Did they get consumed in time? Were they wasted? This data can help users better understand their consumption patterns.
+## 📌 Index
 
-**Your Task:**
-Design and implement a feature that allows users to mark food items as consumed. This should help users:
-1. Keep track of what they've actually eaten
-2. Distinguish between consumed items and potentially wasted items
-3. Review their consumption history
+- [📝 Project Overview](#-project-overview)
+- [🎨 UI Enhancements](#-ui-enhancements)
+- [🌎 State Management & Architecture](#-state-management--architecture)
+- [🛠️ Technologies & Tools](#-technologies--tools)
+- [⚙️ Setup & Installation](#-setup--installation)
+- [🚀 Improvements & Future Scope](#-improvements--future-scope)
 
-**Core Requirements:**
-1. Users should be able to mark any food item as "consumed"
-2. Consumed items should be moved to a separate list/view
-3. The UI should clearly distinguish between available and consumed items
-4. Users should be able to view their consumption history
+---
 
-**Technical Notes:**
-- The app uses Provider for state management
-- A mock data service is provided to simulate backend operations
-- Focus on maintaining a clean, intuitive user experience
+## 📝 Project Overview
 
-**Evaluation Criteria:**
-1. **Architecture & Design (40%)**
-   - How well does your solution fit into the existing architecture?
-   - How maintainable and extensible is your code?
-   - How do you handle edge cases?
+I started building the app on the provided codebase, which was then refactored and enhanced to support the required functionalities.
+### ✅ Core Features
 
-2. **User Experience (30%)**
-   - Is the feature intuitive to use?
-   - How do you handle loading states and errors?
-   - Are the UI transitions smooth?
+- **Mark food items as consumed** from the available list
+- **View consumed items separately** in a dedicated tab
+- **Drag item to left to quickly move item between available & consumed lists**
+- **Error handling with a global handler and UI-level feedback**
+- **Theme management for easy customization**
+- **Dependency Injection & Loose Coupling for scalability**
 
-3. **Code Quality (30%)**
-   - Is your code well-organized and documented?
-   - Are your commits clear and logical?
-   - How well do you handle error cases?
+---
 
+## 🎨 UI Enhancements
 
-**Getting Started:**
-1. The base code provides a simple food tracking app
-2. Run `flutter run` to see the current state
+1. **Bottom Navigation Bar**:
+  - Two tabs: **Available Items** & **Consumed Items**
+  - Users can switch between lists effortlessly
 
-**Submission:**
-- Include a brief explanation of your design decisions
-- Deadline: 1 day from assignment date
+2. **Swipe to Move**:
+  - Dragging an item left moves it to the other list (**consumed → available and vice versa**)
+  - Quick and intuitive way to manage food items
 
-**Questions to Consider:**
-1. How will users distinguish between available and consumed items?
-2. What happens to expiry tracking once an item is marked as consumed?
-3. How would you handle accidental "consumed" marks?
-4. How might this feature evolve in future versions?
-
-Feel free to ask questions if anything is unclear. Good luck!
+3. **Theming System**:
+  - Introduced a theme folder
+  - Created `app_color.dart`, `app_theme.dart`, and `app_text_theme.dart`
+  - Centralized theme management for easy scalability
 
 
-Assignment/1/
-├── lib/
-│   ├── models/
-│   │   └── item_data.dart
-│   ├── providers/
-│   │   └── items_provider.dart
-│   ├── screens/
-│   │   ├── consumed_items_screen.dart  (NEW)
-│   │   └── dashboard_screen.dart      (Simplified, for context)
-│   ├── widgets/
-│   │   └── item_card.dart             (Simplified, for context)
-│   ├── services/
-│   │   └── mock_firestore_service.dart (NEW)
-│   └── main.dart
-└── README.md
+---
+
+## 🌎 State Management & Architecture
+
+- **Provider**: Used for state management
+- **Freezed for Models**: Eliminates the need for manually writing `fromJson`, `toJson`, and `copyWith` methods
+- **Dependency Injection**: Abstracted `MockFirebaseService` for better testability and scalability
+- **Error Handling**:
+  - **Global Error Handler**: `runZonedGuarded` for catching unexpected errors
+  - **Localized UI Errors**: Display known errors within the UI
+
+---
+
+## ⚙️ Setup
+
+```bash
+# Clone the repository
+git clone <repository-url>
+
+# Navigate to the project directory
+cd expyr_assignment_1
+
+# Install dependencies
+flutter pub get
+
+# Generate model classes using Freezed
+dart run build_runner build
+
+# Run the app
+flutter run
+```
+
+## 🚀 Improvements & Future Scope
+### 🔹 Architectural Enhancements
+- Use MVVM Architecture to improve separation of concerns and make the codebase more scalable.
+- Switch to Riverpod for robust state management, better performance, and enhanced error handling.
+- Improve Error Handling by adding more user-friendly UI feedback and structured exception handling
+### 🔹 Feature Enhancements
+- **Partial Consumption Tracking**: Allow users to mark only part of an item as consumed instead of the entire item
+
