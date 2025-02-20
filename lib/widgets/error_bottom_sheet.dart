@@ -5,6 +5,7 @@ import '../common/utils.dart';
 import '../theme/app_color.dart';
 import 'ea_elevated_button.dart';
 
+/// A bottom sheet widget for displaying error messages.
 class ErrorBottomSheet extends StatelessWidget {
   final Object exception;
 
@@ -35,6 +36,7 @@ class ErrorBottomSheet extends StatelessWidget {
     );
   }
 
+  /// Returns an error icon with a circular red background.
   Widget _getIcon() => Container(
         padding: const EdgeInsets.all(10),
         decoration: const BoxDecoration(

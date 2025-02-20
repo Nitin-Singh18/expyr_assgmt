@@ -1,8 +1,10 @@
 import '../models/item_data.dart';
 import 'database_service.dart';
 
+/// A mock implementation of [DatabaseService] that simulates Firestore
+/// operations using an in-memory list.
 class MockFirestoreService implements DatabaseService {
-  // Simulated in-memory data store
+  /// Simulated in-memory data store representing a list of food items.
   final List<Map<String, dynamic>> _items = [
     {
       'id': '1',
@@ -30,12 +32,14 @@ class MockFirestoreService implements DatabaseService {
     },
   ];
 
+  /// Fetches a list of available food items asynchronously.
   @override
   Future<List<ItemData>> getItems() async {
     await Future.delayed(const Duration(seconds: 1)); // Simulate network delay
     return _items.map((itemMap) => ItemData.fromJson(itemMap)).toList();
   }
 
+  /// Updates an existing item in the mock database.
   @override
   Future<void> updateItem(ItemData updatedItem) async {
     await Future.delayed(const Duration(milliseconds: 200));

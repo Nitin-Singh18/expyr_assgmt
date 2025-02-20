@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'common/utils.dart';
@@ -8,6 +7,7 @@ import 'screens/dashboard_screen.dart';
 import 'services/mock_firestore_service.dart';
 import 'theme/app_theme.dart';
 
+/// Global navigator key for accessing navigation outside the widget tree.
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() {
@@ -23,13 +23,14 @@ void main() {
   }, (e, s) {
     debugPrint("Global Error Handler Caught: ${e.toString()}");
 
-    /// Shows a bottom sheet for all uncaught errors (Both Sync and Async)
+    // Displays a bottom sheet for unhandled errors.
     if (navigatorKey.currentContext != null) {
       showErrorBottomSheet(context: navigatorKey.currentContext!, exception: e);
     }
   });
 }
 
+/// Root widget of the application.
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -43,10 +44,11 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     final error =
-        context.select<ItemsProvider, String?>((selector) => selector.error);
+        context.select<ItemsProvider, String?>((provider) => provider.error);
 
     if (error != null && error != _lastShownError) {
-      _lastShownError = error; // Store the last shown error
+      _lastShownError =
+          error; // Store the last shown error to prevent repetition
 
       WidgetsBinding.instance.addPostFrameCallback((_) {
         debugPrint("Error Handler Caught: $error");

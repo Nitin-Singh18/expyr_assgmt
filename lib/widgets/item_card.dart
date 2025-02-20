@@ -5,9 +5,15 @@ import '../common/utils.dart';
 import '../models/item_data.dart';
 import '../theme/app_color.dart';
 
+/// A dismissible card widget representing an item.
 class ItemCard extends StatelessWidget {
+  /// The title displayed when the item is swiped away.
   final String dismissibleTitle;
+
+  /// The food item data.
   final ItemData item;
+
+  /// Callback function triggered when the item is dismissed.
   final Function(DismissDirection) onDismissed;
 
   const ItemCard({
@@ -28,6 +34,7 @@ class ItemCard extends StatelessWidget {
     );
   }
 
+  /// Builds the main content of the item card.
   Widget _buildItemContent(BuildContext context) => Card(
         child: ListTile(
           title: Text(
@@ -63,6 +70,7 @@ class ItemCard extends StatelessWidget {
         ),
       );
 
+  /// Builds an information field inside the card.
   Widget _buildItemInfo({
     required BuildContext context,
     required String label,
@@ -73,6 +81,7 @@ class ItemCard extends StatelessWidget {
         style: context.textTheme.labelMedium,
       );
 
+  /// Builds the background shown when the item is dismissed.
   Widget _buildDismissibleBackGround(BuildContext context) => Container(
         color: AppColor.green,
         padding: const EdgeInsets.only(right: 24),

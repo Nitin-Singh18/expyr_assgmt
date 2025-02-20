@@ -5,8 +5,8 @@ import '../theme/app_color.dart';
 import 'available_items_screen.dart';
 import 'consumed_items_screen.dart';
 
-final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
+/// Handles and Displays screen using [BottomNavigationBar] to switch between
+/// [AvailableItemsScreen] and [ConsumedItemsScreen].
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 
@@ -17,6 +17,7 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   int _selectedIndex = 0;
 
+  /// Handles bottom navigation bar taps.
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -26,7 +27,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
       appBar: AppBar(
         title: Text(
           "Expyr",

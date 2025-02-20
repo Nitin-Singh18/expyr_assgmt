@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// A utility class defining application-wide colors.
 class AppColor {
   static const Color cream = Color(0xffF9FDF8);
   static const lightRedColor = Color(0xffFFE2E0);

@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import '../common/constants.dart';
 import '../common/extensions/context_extension.dart';
 import '../theme/app_color.dart';
-
+/// Shows a custom elevated button [EaElevatedButton].
 class EaElevatedButton extends StatelessWidget {
+  /// The button's title.
   final String title;
+
+  /// The function to execute when the button is pressed.
   final VoidCallback? onPressed;
 
   const EaElevatedButton({

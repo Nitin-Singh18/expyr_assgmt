@@ -5,6 +5,7 @@ import '../common/utils.dart';
 import '../providers/items_provider.dart';
 import '../widgets/item_card.dart';
 
+/// Displays the list of consumed food items.
 class ConsumedItemsScreen extends StatelessWidget {
   const ConsumedItemsScreen({super.key});
 
@@ -25,16 +26,17 @@ class ConsumedItemsScreen extends StatelessWidget {
     );
   }
 
+  /// Builds the list view of consumed food items.
   Widget _buildConsumedItems(ItemsProvider itemsProvider) => ListView.builder(
-        itemCount: itemsProvider.consumedItems.length,
-        itemBuilder: (context, index) {
-          final item = itemsProvider.consumedItems[index];
-          return ItemCard(
-            item: item,
-            dismissibleTitle: "Revert to Available Items",
-            onDismissed: (_) async =>
-                await context.read<ItemsProvider>().undoConsumedItem(item.id!),
-          );
-        },
+    itemCount: itemsProvider.consumedItems.length,
+    itemBuilder: (context, index) {
+      final item = itemsProvider.consumedItems[index];
+      return ItemCard(
+        item: item,
+        dismissibleTitle: "Revert to Available Items",
+        onDismissed: (_) async =>
+        await context.read<ItemsProvider>().undoConsumedItem(item.id!),
       );
+    },
+  );
 }

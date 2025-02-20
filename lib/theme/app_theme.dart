@@ -4,6 +4,7 @@ import '../common/constants.dart';
 import 'app_color.dart';
 import 'expyr_text_theme.dart';
 
+/// Defines global theme.
 class AppTheme {
   static final ThemeData lightTheme = ThemeData(
       primarySwatch: AppColor.appMaterialColor,

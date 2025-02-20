@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../common/constants.dart';
 import '../common/utils.dart';
 import '../providers/items_provider.dart';
 import '../widgets/item_card.dart';
 
+/// Displays the list of available food items that haven't been consumed yet.
 class AvailableItemsScreen extends StatelessWidget {
   const AvailableItemsScreen({super.key});
 
@@ -29,6 +31,7 @@ class AvailableItemsScreen extends StatelessWidget {
     );
   }
 
+  /// Builds the list view of available food items.
   Widget _buildAvailableItems(ItemsProvider itemsProvider) => Padding(
         padding:
             const EdgeInsets.symmetric(horizontal: horizontalScreenSidePadding),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// A custom text theme.
 class ExpyrTextTheme extends TextTheme {
   @override
   TextStyle? get titleLarge =>
