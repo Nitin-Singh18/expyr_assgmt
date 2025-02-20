@@ -10,8 +10,11 @@ class ItemsProvider with ChangeNotifier {
   bool _loading = false;
 
   List<ItemData> get items => _items;
+
   List<ItemData> get consumedItems => _consumedItems;
+
   String? get error => _error;
+
   bool get loading => _loading;
 
   Future<void> loadItems() async {
@@ -19,12 +22,10 @@ class ItemsProvider with ChangeNotifier {
     try {
       final items = await _firestoreService.getItems();
       _items = items.map((itemMap) => ItemData.fromMap(itemMap)).toList();
-      _consumedItems = [];
-      _error = null;
+
       debugPrint('Loaded items: $_items');
     } catch (e) {
       _error = e.toString();
-      _items = [];
       debugPrint('Error loading items: $e');
     } finally {
       _setLoading(false);
@@ -43,11 +44,7 @@ class ItemsProvider with ChangeNotifier {
       _consumedItems.add(updatedItem);
       _items.removeAt(index);
 
-      await _firestoreService.updateItem(
-          updatedItem.id!, {'isConsumed': true});
-
-      _error = null;
-      notifyListeners();
+      await _firestoreService.updateItem(updatedItem.id!, {'isConsumed': true});
     } catch (e) {
       _error = e.toString();
       debugPrint('Error consuming item: $e');
@@ -56,29 +53,8 @@ class ItemsProvider with ChangeNotifier {
     }
   }
 
-  Future<List<ItemData>> addItems(List<Map<String, dynamic>> items) async {
-    _setLoading(true);
-    _error = null;
-    final List<ItemData> addedItems = [];
-
-    try {
-      final newItems = await _firestoreService.batchCreateItems(items);
-      addedItems.addAll(newItems.map((itemMap) => ItemData.fromMap(itemMap)));
-
-      _items.addAll(addedItems);
-      notifyListeners();
-    } catch (e) {
-      _error = e.toString();
-      debugPrint('Error adding items: $e');
-    } finally {
-      _setLoading(false);
-    }
-
-    return addedItems;
-  }
-
   void _setLoading(bool value) {
     _loading = value;
     notifyListeners();
   }
-} 
+}
