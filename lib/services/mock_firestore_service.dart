@@ -1,59 +1,51 @@
-class MockFirestoreService {
-  // Simulate data storage
+import '../models/item_data.dart';
+import 'database_service.dart';
+
+class MockFirestoreService implements DatabaseService {
+  // Simulated in-memory data store
   final List<Map<String, dynamic>> _items = [
     {
       'id': '1',
       'name': 'Milk',
-      'expiry': '20-12-24',
+      'expiry': '2024-12-20',
       'location': 'fridge',
       'quantity': 1,
       'isPackaged': true,
       'imagePath': null,
       'isExpiryAssumed': false,
       'isConsumed': false,
+      'consumedAt': null,
     },
     {
       'id': '2',
       'name': 'Bread',
-      'expiry': '25-12-24',
+      'expiry': '2024-12-25',
       'location': 'pantry',
       'quantity': 2,
       'isPackaged': true,
       'imagePath': null,
       'isExpiryAssumed': false,
       'isConsumed': false,
+      'consumedAt': null,
     },
   ];
 
-  Future<List<Map<String, dynamic>>> getItems() async {
-    // Simulate network delay
-    await Future.delayed(const Duration(seconds: 1));
-    return _items;
+  @override
+  Future<List<ItemData>> getItems() async {
+    await Future.delayed(const Duration(seconds: 1)); // Simulate network delay
+    return _items.map((itemMap) => ItemData.fromJson(itemMap)).toList();
   }
 
-  Future<void> updateItem(String itemId, Map<String, dynamic> updates) async {
+  @override
+  Future<void> updateItem(ItemData updatedItem) async {
     await Future.delayed(const Duration(milliseconds: 200));
-    final index = _items.indexWhere((item) => item['id'] == itemId);
+
+    final index = _items.indexWhere((item) => item['id'] == updatedItem.id);
+
     if (index != -1) {
-      _items[index] = {..._items[index], ...updates};
+      _items[index] = updatedItem.toJson();
     } else {
-      throw Exception('MockFirestoreService: Item not found');
+      throw Exception('Item with ID ${updatedItem.id} not found');
     }
   }
-
-  Future<List<Map<String, dynamic>>> batchCreateItems(
-      List<Map<String, dynamic>> items) async {
-    await Future.delayed(const Duration(milliseconds: 500));
-
-    final List<Map<String, dynamic>> newItems = [];
-    for (final item in items) {
-      final newItem = {
-        'id': DateTime.now().millisecondsSinceEpoch.toString(),
-        ...item,
-      };
-      _items.add(newItem);
-      newItems.add(newItem);
-    }
-    return newItems;
-  }
-} 
+}

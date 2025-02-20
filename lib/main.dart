@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'common/utils.dart';
 import 'providers/items_provider.dart';
 import 'screens/dashboard_screen.dart';
+import 'services/mock_firestore_service.dart';
 import 'theme/app_theme.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -13,7 +14,9 @@ void main() {
   runZonedGuarded(() {
     runApp(
       ChangeNotifierProvider(
-        create: (context) => ItemsProvider()..loadItems(),
+        create: (context) =>
+            ItemsProvider(databaseService: MockFirestoreService())
+              ..fetchItems(),
         child: const MyApp(),
       ),
     );
