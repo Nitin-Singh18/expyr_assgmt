@@ -53,6 +53,8 @@ class ItemsProvider with ChangeNotifier {
     }
   }
 
+  Future<void> undoConsumedItem(String itemId) async {}
+
   void _setLoading(bool value) {
     _loading = value;
     notifyListeners();
